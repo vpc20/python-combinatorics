@@ -29,25 +29,46 @@ from itertools import permutations
 
 
 def permutation_recur(arr, r):
-    if r == 1:
-        for e in arr:
-            yield e,  # yield a tuple
+    if r == 0:
+        yield tuple()  # yield a tuple
         return
     for i, e in enumerate(arr):
         for p in permutation_recur(arr[:i] + arr[i + 1:], r - 1):
-            yield (e,) + p
+            yield tuple(e) + p
+
+# def permutation_recur(arr, r):
+#     if r == 1:
+#         for e in arr:
+#             yield e,  # yield a tuple
+#         return
+#     for i, e in enumerate(arr):
+#         for p in permutation_recur(arr[:i] + arr[i + 1:], r - 1):
+#             yield (e,) + p
 
 
 def permutation_backtrack(arr, r, perm=[]):
     if len(perm) == r:
         yield perm
 
-    for e in arr:
-        if e not in perm:
-            perm.append(e)
-            yield from permutation_backtrack(arr, r, perm)
-            perm.pop()
+    for i, e in enumerate(arr):
+        perm.append(e)
+        yield from permutation_backtrack(arr[:i] + arr[i + 1:], r, perm)
+        perm.pop()
 
+# output is list, not generator
+# def permutation_backtrack(nums, r):
+#     def permute(nums, r, perm):
+#         if len(perm) == r:
+#             result.append(perm[:])
+#
+#         for i, e in enumerate(nums):
+#             perm.append(e)
+#             permute(nums[:i] + nums[i + 1:], r, perm)
+#             perm.pop()
+#
+#     result = []
+#     permute(nums, r, [])
+#     return result
 
 # for strings only
 # def permutation(s, r):
@@ -93,4 +114,5 @@ if __name__ == '__main__':
     # print([e for e in permutations('abc', 3)])
     # print([e for e in permutation_recur('abc', 3)])
     # print([''.join(e) for e in permutation_recur('abc', 2)])
-    print([''.join(e) for e in permutation_recur('abc', 2)])
+    print([''.join(e) for e in permutation_recur('aabc', 2)])
+    print([''.join(e) for e in permutation_backtrack('aabc', 2)])
