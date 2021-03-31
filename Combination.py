@@ -16,14 +16,50 @@
 #             yield (arr[i],) + c
 
 
+# def combination(arr, r):
+#     if r == 1:
+#         for e in arr:
+#             yield (e,)
+#         return
+#     for i in range(len(arr) - 1):
+#         for c in combination(arr[i + 1:], r - 1):
+#             yield (arr[i],) + c
+
+
 def combination(arr, r):
-    if r == 1:
-        for e in arr:
-            yield (e,)
+    if r == 0:
+        yield tuple()
         return
-    for i in range(len(arr) - 1):
+    for i in range(len(arr)):
         for c in combination(arr[i + 1:], r - 1):
-            yield (arr[i],) + c
+            yield tuple(arr[i]) + c
+
+
+# use backtracking method
+# def combination(arr, r, comb=[]):
+#     if r == 0:
+#         yield tuple(comb[:])
+#     else:
+#         for i in range(len(arr)):
+#             comb.append(arr[i])
+#             yield from combination(arr[i + 1:], r - 1, comb)
+#             comb.pop()
+
+# use backtracking method, return list instead of generator
+# def combination(arr, k):
+#     def combine(arr, k, comb):
+#         if k == 0:
+#             result.append(comb[:])
+#         else:
+#             for i in range(len(arr)):
+#                 comb.append(arr[i])
+#                 combine(arr[i + 1:], k - 1, comb)
+#                 comb.pop()
+#
+#     result = []
+#     combine(arr, k, [])
+#     return result
+
 
 # def combination(arr, r):
 #     if r == 0:
@@ -123,3 +159,5 @@ if __name__ == '__main__':
     #     print(''.join(comb))
     # for comb in combination([1, 2, 3], 2):
     #     print(comb)
+    for comb in combination('a', 1):
+        print(''.join(comb))
