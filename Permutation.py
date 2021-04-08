@@ -36,6 +36,7 @@ def permutation_recur(arr, r):
         for p in permutation_recur(arr[:i] + arr[i + 1:], r - 1):
             yield tuple(e) + p
 
+
 # def permutation_recur(arr, r):
 #     if r == 1:
 #         for e in arr:
@@ -45,15 +46,24 @@ def permutation_recur(arr, r):
 #         for p in permutation_recur(arr[:i] + arr[i + 1:], r - 1):
 #             yield (e,) + p
 
+# backtrack method
+# def permutation_backtrack(arr, r, perm=[]):
+#     if len(perm) == r:
+#         yield perm
+#
+#     for i, e in enumerate(arr):
+#         perm.append(e)
+#         yield from permutation_backtrack(arr[:i] + arr[i + 1:], r, perm)
+#         perm.pop()
 
+# backtrack refactored
 def permutation_backtrack(arr, r, perm=[]):
     if len(perm) == r:
         yield perm
 
-    for i, e in enumerate(arr):
-        perm.append(e)
-        yield from permutation_backtrack(arr[:i] + arr[i + 1:], r, perm)
-        perm.pop()
+    for i in range(len(arr)):
+        yield from permutation_backtrack(arr[:i] + arr[i + 1:], r, perm + [arr[i]])
+
 
 # output is list, not generator
 # def permutation_backtrack(nums, r):
