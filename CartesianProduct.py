@@ -11,10 +11,19 @@ from itertools import product
 #             yield (e,) + p
 
 
+# def cartesian_product(arr, r):
+#     if r == 1:
+#         for e in arr:
+#             yield (e,)
+#         return
+#     for i, e in enumerate(arr):
+#         for p in cartesian_product(arr, r - 1):
+#             yield (e,) + p
+
+
 def cartesian_product(arr, r):
-    if r == 1:
-        for e in arr:
-            yield (e,)
+    if r == 0:
+        yield tuple()
         return
     for i, e in enumerate(arr):
         for p in cartesian_product(arr, r - 1):
