@@ -12,3 +12,10 @@ print(tuple(''.join(prod) for prod in product('abc', repeat=2)))
 
 print(tuple(''.join(prod) for prod in product('abc', 'def')))
 print(tuple(''.join(prod) for prod in product(*['abc', 'def'])))
+
+# removing duplicate results if there are duplicate characters
+pset = set()
+for perm in permutations('aabc', 2):
+    if perm not in pset:
+        print(perm)
+    pset.add(perm)

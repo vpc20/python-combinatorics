@@ -25,7 +25,7 @@ def cartesian_product(arr, r):
     if r == 0:
         yield tuple()
         return
-    for i, e in enumerate(arr):
+    for e in arr:
         for p in cartesian_product(arr, r - 1):
             yield (e,) + p
 

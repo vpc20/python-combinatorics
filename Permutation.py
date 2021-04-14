@@ -101,6 +101,25 @@ def permutation_backtrack(arr, r, perm=[]):
 
 
 # for arrays and strings, output is tuple, iterative, dynamic
+# def permutation_iter(arr, r):
+#     dp_arr = [[[()]] + [[] for _ in range(r)] for _ in range(len(arr) + 1)]
+#     # for e in arr:
+#     #     print(e)
+#
+#     for i in range(1, len(arr) + 1):
+#         for j in range(1, r + 1):
+#             if j <= i:
+#                 new_perm = []
+#                 for tup1 in dp_arr[i - 1][j - 1]:
+#                     for k in range(len(tup1), -1, -1):
+#                         new_perm.append(tup1[:k] + tuple([arr[i - 1]]) + tup1[k:])  # insert char in all positions
+#                 dp_arr[i][j] = dp_arr[i - 1][j] + new_perm
+#     # for e in dp_arr:
+#     #     print(e)
+#     # print(dp_arr)
+#     return dp_arr[-1][-1]
+
+# for arrays and strings, output is tuple, iterative, dynamic
 def permutation_iter(arr, r):
     dp_arr = [[[()]] + [[] for _ in range(r)] for _ in range(len(arr) + 1)]
     # for e in arr:
@@ -109,11 +128,10 @@ def permutation_iter(arr, r):
     for i in range(1, len(arr) + 1):
         for j in range(1, r + 1):
             if j <= i:
-                new_perm = []
+                dp_arr[i][j] = dp_arr[i - 1][j].copy()
                 for tup1 in dp_arr[i - 1][j - 1]:
                     for k in range(len(tup1), -1, -1):
-                        new_perm.append(tup1[:k] + tuple([arr[i - 1]]) + tup1[k:])  # insert char in all positions
-                dp_arr[i][j] = dp_arr[i - 1][j] + new_perm
+                        dp_arr[i][j].append(tup1[:k] + tuple([arr[i - 1]]) + tup1[k:])  # insert char in all positions
     # for e in dp_arr:
     #     print(e)
     # print(dp_arr)
