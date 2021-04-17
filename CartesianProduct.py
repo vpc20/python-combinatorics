@@ -1,6 +1,3 @@
-from itertools import product
-
-
 # def cartesian_product(arr, r):
 #     for i, e in enumerate(arr):
 #         if r == 0:
@@ -50,10 +47,52 @@ def cartesian_product_iter(arr, r):
     return dp_arr[-1][-1]
 
 
+def cartesian_product2(arrs):
+    if not arrs:
+        yield tuple()
+        return
+
+    for e in arrs[0]:
+        for p in cartesian_product2(arrs[1:]):
+            yield (e,) + p
+
+
+# def cartesian_product2x(arrs):
+#     result = [()]
+#     for arr in arrs:
+#         n = len(result)
+#         for e in result.copy():
+#             for item in arr:
+#                 result.append(e + (item,))
+#         result = result[n:]  # remove all previous values
+#     return result
+
+# iterative, dp solution
+def cartesian_product2_iter(arrs):
+    prev = [()]
+    result = []
+    for arr in arrs:
+        result.clear()
+        for e in prev:
+            for item in arr:
+                result.append(e + (item,))
+        prev = result.copy()
+    return result
+
+
 if __name__ == '__main__':
-    print(list([''.join(comb) for comb in cartesian_product('abcd', 1)]))
-    print(list([''.join(comb) for comb in cartesian_product('abcd', 2)]))
-    print(list([''.join(comb) for comb in cartesian_product('abcd', 3)]))
-    print(list([''.join(comb) for comb in cartesian_product('abcd', 4)]))
-    print(list([''.join(comb) for comb in cartesian_product_iter('abcd', 2)]))
-    # print([comb for comb in cartesian_product('abcd', 2)])
+    print([''.join(prod) for prod in cartesian_product('abcd', 1)])
+    print([''.join(prod) for prod in cartesian_product('abcd', 2)])
+    print([''.join(prod) for prod in cartesian_product('abcd', 3)])
+    print([''.join(prod) for prod in cartesian_product('abcd', 4)])
+    print([''.join(prod) for prod in cartesian_product_iter('abcd', 2)])
+    # print([prod for prod in cartesian_product('abcd', 2)])
+    # print([''.join(prod) for prod in cartesian_product2(['abc', 'def'])])
+    # print([''.join(prod) for prod in cartesian_product2([[]])])
+    # print([''.join(prod) for prod in cartesian_product2([[], []])])
+    # print([''.join(prod) for prod in cartesian_product2([[], [], []])])
+    # print([''.join(prod) for prod in cartesian_product2([[], [5], []])])
+    # print([''.join(prod) for prod in cartesian_product2x(['abc', 'def'])])
+    print(cartesian_product2_iter([[1, 2, 3], [4, 5, 6]]))
+    print(cartesian_product2_iter(['abc', 'def']))
+    print(cartesian_product2_iter([[1, 2], [3, 4], [5, 6]]))
